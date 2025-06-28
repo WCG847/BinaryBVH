@@ -117,9 +117,9 @@ class BVH2BBVH:
 		self.BVHLIST = BVHLIST
 
 	def CreateMotion(self, mode: int = 1):
-		'''Mode : 1 = INT16 (scaled 0.01)'''
+		'''Mode : 1 = INT16 (scaled 100)'''
 		'''Mode : 2 = Float32'''
-		'''Mode : 3 = INT8 (scaled 0.01)'''
+		'''Mode : 3 = INT8 (scaled 10)'''
 
 		MOTIONPTR = self.bbvh.tell()
 		MOTION = b"NTOM"
