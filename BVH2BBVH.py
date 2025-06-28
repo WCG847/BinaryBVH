@@ -143,7 +143,9 @@ class BVH2BBVH:
 					elif mode == 2:
 						self.bbvh.write(pack("f", val))
 					elif mode == 3:
-						self.bbvh.write(pack("b", int(val * 100)))
+						v = int(val * 10)
+						v = max(-128, min(127, v))
+						self.bbvh.write(pack("b", v))
 					cursor += 1
 
 			# Backpatch frame length
@@ -170,10 +172,10 @@ class BVH2BBVH:
 		self.bbvh.seek(AlignedEnd)
 		self.MPTR = MOTIONPTR
 
-	def WriteRelocation(self, introduceend: int):
+	def WriteRelocation(self, introduceend: int, mode: int):
 		'''Create optimised relocation delta pointers'''
 		self.CreateHierarchy()
-		self.CreateMotion()
+		self.CreateMotion(mode)
 		chunkptr = self.bbvh.tell()
 		formatheader = b'TIXE'
 		self.bbvh.write(formatheader)
